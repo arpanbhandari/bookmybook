@@ -1,3 +1,6 @@
+
+import java.awt.Toolkit;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +18,7 @@ public class searchBookMain extends javax.swing.JFrame {
      */
     public searchBookMain() {
         initComponents();
+        setIcon();
     }
 
     /**
@@ -199,6 +203,10 @@ public class searchBookMain extends javax.swing.JFrame {
                 new searchBookMain().setVisible(true);
             }
         });
+    }
+    private void setIcon()
+    {
+    setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("search_185601.png")));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
