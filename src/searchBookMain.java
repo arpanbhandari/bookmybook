@@ -45,6 +45,11 @@ public class searchBookMain extends javax.swing.JFrame {
         jRadioButton1.setForeground(new java.awt.Color(102, 153, 255));
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Book Title");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -136,8 +141,7 @@ public class searchBookMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        
+ 
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -145,6 +149,13 @@ public class searchBookMain extends javax.swing.JFrame {
     new Landing_Page().setVisible(true);
     this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        if(jRadioButton1.isSelected())
+        {
+             new searchBookTitle().setVisible(true);
+        }
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
