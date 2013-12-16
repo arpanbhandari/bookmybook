@@ -354,7 +354,7 @@ public class Add_Page_Book extends javax.swing.JFrame  {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new Add_Page_Menu().setVisible(true);        // TODO add your handling code here:
+        new Landing_Page().setVisible(true);        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -38,6 +38,8 @@ public class searchBookMain extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,27 +87,38 @@ public class searchBookMain extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(102, 153, 255));
+        jRadioButton2.setText("Author ");
+
+        jRadioButton3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(102, 153, 255));
+        jRadioButton3.setText("Category");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(978, 978, 978)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton1)
-                                    .addComponent(jLabel2)))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton3)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
+                                .addGap(1023, 1023, 1023)
                                 .addComponent(jButton3)))
                         .addGap(0, 64, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -113,13 +126,14 @@ public class searchBookMain extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(188, 188, 188)
                 .addComponent(jLabel2)
                 .addGap(30, 30, 30)
                 .addComponent(jRadioButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -127,6 +141,9 @@ public class searchBookMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,7 +168,17 @@ public class searchBookMain extends javax.swing.JFrame {
         {
              new searchBookTitle().setVisible(true);
              this.dispose();
-        }        // TODO add your handling code here:
+        } 
+    if(jRadioButton2.isSelected())
+    {
+        new searchBookAuthor().setVisible(true);
+        this.dispose();
+    }
+    if(jRadioButton3.isSelected())
+    {
+        new searchBookCategory().setVisible(true);
+        this.dispose();
+    }
    
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -202,5 +229,7 @@ public class searchBookMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     // End of variables declaration//GEN-END:variables
 }
