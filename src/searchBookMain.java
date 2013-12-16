@@ -19,6 +19,7 @@ public class searchBookMain extends javax.swing.JFrame {
     public searchBookMain() {
         initComponents();
         setIcon();
+        this.setTitle("Search");
     }
 
     /**
@@ -33,8 +34,6 @@ public class searchBookMain extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -54,16 +53,6 @@ public class searchBookMain extends javax.swing.JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(102, 153, 255));
-        jRadioButton2.setText("Author Name");
-
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(102, 153, 255));
-        jRadioButton3.setText("Category");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 153, 255));
@@ -114,13 +103,11 @@ public class searchBookMain extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jRadioButton3)
                                     .addComponent(jLabel2)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addComponent(jButton3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 64, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,10 +120,6 @@ public class searchBookMain extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(30, 30, 30)
                 .addComponent(jRadioButton1)
-                .addGap(60, 60, 60)
-                .addComponent(jRadioButton2)
-                .addGap(60, 60, 60)
-                .addComponent(jRadioButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -167,7 +150,9 @@ public class searchBookMain extends javax.swing.JFrame {
     if(jRadioButton1.isSelected())
         {
              new searchBookTitle().setVisible(true);
+             this.dispose();
         }        // TODO add your handling code here:
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -217,7 +202,5 @@ public class searchBookMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     // End of variables declaration//GEN-END:variables
 }

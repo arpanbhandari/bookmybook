@@ -95,6 +95,11 @@ public class Landing_Page extends javax.swing.JFrame  {
         jButton4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(102, 153, 255));
         jButton4.setText("Search Book");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,7 +155,7 @@ public class Landing_Page extends javax.swing.JFrame  {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        new Add_Page_Menu().setVisible(true); 
+        new Add_Page_Book().setVisible(true);
                 this.dispose();
         // TODO add your handling code here:
         
@@ -160,6 +165,12 @@ public class Landing_Page extends javax.swing.JFrame  {
         new deleteBook().setVisible(true);
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    new searchBookMain().setVisible(true);
+    this.dispose();
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

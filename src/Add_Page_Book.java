@@ -77,7 +77,6 @@ public class Add_Page_Book extends javax.swing.JFrame  {
 
         jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(204, 204, 255));
-        jTextField1.setText("Enter Title");
         jTextField1.setCaretColor(new java.awt.Color(102, 153, 255));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +110,6 @@ public class Add_Page_Book extends javax.swing.JFrame  {
 
         jTextField4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jTextField4.setForeground(new java.awt.Color(204, 204, 255));
-        jTextField4.setText("Book Id");
 
         jComboBox1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(102, 153, 255));
@@ -182,7 +180,6 @@ public class Add_Page_Book extends javax.swing.JFrame  {
 
         jTextField2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(204, 204, 255));
-        jTextField2.setText("Enter Year");
 
         jLabel9.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 153, 255));
@@ -190,7 +187,6 @@ public class Add_Page_Book extends javax.swing.JFrame  {
 
         jTextField3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(204, 204, 255));
-        jTextField3.setText("Enter Price");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,12 +231,12 @@ public class Add_Page_Book extends javax.swing.JFrame  {
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel9))
                                         .addGap(61, 61, 61)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 108, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField4)
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                            .addComponent(jTextField2)
+                                            .addComponent(jTextField3))))
+                                .addGap(0, 66, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
