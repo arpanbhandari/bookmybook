@@ -8,13 +8,21 @@
  *
  * @author arpan
  */
+import javax.swing.JOptionPane;
+
 public class payment extends javax.swing.JFrame {
 
+    orderDetails parent;
+    String card_no="";
+    String valid_date="";
+    String name ="";
+    
     /**
      * Creates new form payment
      */
-    public payment() {
+    public payment(orderDetails temp) {
         initComponents();
+        parent = temp;
     }
 
     /**
@@ -57,6 +65,11 @@ public class payment extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(102, 153, 255));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 153, 255));
@@ -64,6 +77,11 @@ public class payment extends javax.swing.JFrame {
 
         jTextField2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(102, 153, 255));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 153, 255));
@@ -71,14 +89,29 @@ public class payment extends javax.swing.JFrame {
 
         jTextField3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTextField3.setForeground(new java.awt.Color(102, 153, 255));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(102, 153, 255));
         jButton1.setText("Confirm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 153, 255));
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(102, 153, 255));
@@ -158,40 +191,38 @@ public class payment extends javax.swing.JFrame {
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            // TODO add your handling code here:
+        parent.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new payment().setVisible(true);
-            }
-        });
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (name.equals("") || valid_date.equals("") || card_no.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter the details");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Payment Done");
+            this.dispose();
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+        card_no = jTextField1.getText();
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+        name = jTextField2.getText();
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+        valid_date = jTextField3.getText();
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

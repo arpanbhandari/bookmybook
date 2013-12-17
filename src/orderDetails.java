@@ -172,6 +172,11 @@ public class orderDetails extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jButton1.setText("Order");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Delete");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -229,8 +234,6 @@ public class orderDetails extends javax.swing.JFrame {
         int numRows = jTable1.getSelectedRow();
 
         model = jTable1.getModel();
-
-        System.out.println("Value of data: ");
         
         String temp = jTable1.getModel().getValueAt(numRows, 0).toString();
         System.out.println(temp);
@@ -257,6 +260,12 @@ public class orderDetails extends javax.swing.JFrame {
         parent.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        payment y = new payment(this);
+        y.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

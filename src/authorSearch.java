@@ -2,9 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-
-//package bookmybook;
+ *///package bookmybook;
 
 import java.sql.*;
 import com.mysql.jdbc.Driver;
@@ -39,6 +37,7 @@ public class authorSearch extends javax.swing.JFrame {
     String date;
     int order_no;
     int quantity;
+    int stock_qty;
     
     /**
      * Creates new form authorSearch
@@ -51,10 +50,14 @@ public class authorSearch extends javax.swing.JFrame {
         parent = temp;
         this.uname = uname;
         System.out.println(uname);
+        cart_no = parent.cart_no;
+        order_no = parent.order_no;
         
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent ev) {
+                parent.cart_no=cart_no;
+                parent.order_no=order_no;
                 parent.setVisible(true);
             }
         });
@@ -100,6 +103,7 @@ public class authorSearch extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +128,13 @@ public class authorSearch extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Enter Quantity :");
+
+        jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,6 +164,8 @@ public class authorSearch extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)))))
                 .addContainerGap())
         );
@@ -177,7 +190,8 @@ public class authorSearch extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -201,68 +215,114 @@ public class authorSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You need to login to place an order");
         }
         else{
-            Date d = new Date();
-            SimpleDateFormat df = new SimpleDateFormat( "yyyy");
-            date = df.format(d) + "-";
-            df = new SimpleDateFormat( "MM");
-            date = date + df.format(d) + "-";
-            df = new SimpleDateFormat( "dd");
-            date = date + df.format(d);
+            
+                Date d = new Date();
+                SimpleDateFormat df = new SimpleDateFormat( "yyyy");
+                date = df.format(d) + "-";
+                df = new SimpleDateFormat( "MM");
+                date = date + df.format(d) + "-";
+                df = new SimpleDateFormat( "dd");
+                date = date + df.format(d);
 
-            quantity = Integer.parseInt(jTextField2.getText());
-            System.out.println(quantity);
+                quantity = Integer.parseInt(jTextField2.getText());
+                System.out.println(quantity);
 
-            try {
-                resultSet = statement
-                    .executeQuery("select max(cart_no) from CART;");
-                if (resultSet.next()) {
-                    cart_no = resultSet.getInt(1) + 1;
-                    System.out.println("cart_no=" + cart_no);
+                try {
+                    if (cart_no == 0) {
+                        resultSet = statement
+                            .executeQuery("select max(cart_no) from CART;");
+                        if (resultSet.next()) {
+                            cart_no = resultSet.getInt(1) + 1;
+                            System.out.println("cart_no=" + cart_no);
+                        }
+                        else {
+                            cart_no = 1;
+                        }
+                    }
+
+                    if (order_no == 0) {
+                        resultSet = statement
+                            .executeQuery("select max(order_no) from ORDERS;");
+                        if (resultSet.next()) {
+                            order_no = resultSet.getInt(1) + 1;
+                            System.out.println("order_no=" + order_no);
+                        }
+                        else {
+                            order_no = 1;
+                        }
+                    }
+                    else {
+                        order_no++;
+                    }
+
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    resultSet = statement
+                            .executeQuery("select isbn from BOOK where title='" + selected + "';");
+
+                    while (resultSet.next()) {
+                        isbn = resultSet.getString(1);
+                    }
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                
+                try {
+                    resultSet = statement
+                            .executeQuery("select S.stock_qty from STOCK S, BOOK B where S.ISBN='"+ isbn + "';");
+
+                    while (resultSet.next()) {
+                        stock_qty = resultSet.getInt(1);
+                    }
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            
+                System.out.println("Stock qty = " + stock_qty);
+            
+                if (stock_qty < quantity) {
+                    JOptionPane.showMessageDialog(null, "Stock not available for selected quantity. Available quantity is " + stock_qty);  
                 }
                 else {
-                    cart_no = 1;
+
+                    try {
+                        preparedStatement = con
+                                .prepareStatement("insert into CART values (" + cart_no + ",'" + uname + "');");
+                        System.out.println("insert into CART values (" + cart_no + ",'" + uname + "');");
+                        preparedStatement.executeUpdate();
+                    }
+                    catch (SQLException e) {
+
+                    }
+
+                    try {
+                        preparedStatement = con
+                                .prepareStatement("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'2013-12-16');");
+                        System.out.println ("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'" + date + "');");
+                        preparedStatement.executeUpdate();
+                    }
+                    catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Book selected");
                 }
-                order_no = cart_no;
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                resultSet = statement
-                        .executeQuery("select isbn from BOOK where title='" + selected + "';");
-
-                while (resultSet.next()) {
-                    isbn = resultSet.getString(1);
-                }
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                preparedStatement = con
-                        .prepareStatement("insert into CART values (" + cart_no + ",'" + uname + "');");
-                System.out.println("insert into CART values (" + cart_no + ",'" + uname + "');");
-                preparedStatement.executeUpdate();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                preparedStatement = con
-                        .prepareStatement("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'2013-12-16');");
-                System.out.println ("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'" + date + "');");
-                preparedStatement.executeUpdate();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            
-            JOptionPane.showMessageDialog(null, "Book selected");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here
+        parent.cart_no=cart_no;
+        parent.order_no=order_no;
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     void fillList() {
         bookName = jComboBox1.getSelectedItem().toString();
@@ -300,6 +360,7 @@ public class authorSearch extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

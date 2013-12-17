@@ -33,6 +33,7 @@ public class SignOut extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,7 +51,7 @@ public class SignOut extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 153, 255));
         jButton2.setLabel("Sign in");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +61,15 @@ public class SignOut extends javax.swing.JFrame {
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/book.jpg"))); // NOI18N
+
+        jButton3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(102, 153, 255));
+        jButton3.setText("Book My Book");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,9 +82,11 @@ public class SignOut extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(0, 37, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(148, 148, 148)
@@ -85,10 +97,12 @@ public class SignOut extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton2))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton3)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(32, 32, 32)
@@ -108,6 +122,11 @@ public class SignOut extends javax.swing.JFrame {
         this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    new BookMyBook("").setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +165,7 @@ public class SignOut extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

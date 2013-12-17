@@ -2,9 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-
-//package bookmybook;
+ *///package bookmybook;
 
 import java.sql.*;
 import com.mysql.jdbc.Driver;
@@ -38,6 +36,7 @@ public class titleSearch extends javax.swing.JFrame {
     String date;
     int order_no;
     int quantity;
+    int stock_qty;
     
     /**
      * Creates new form titleSearch
@@ -49,11 +48,15 @@ public class titleSearch extends javax.swing.JFrame {
         titleList = new Vector();
         parent = temp;
         this.uname = uname;
+        cart_no = parent.cart_no;
+        order_no = parent.order_no;
         
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent ev) {
                 parent.setVisible(true);
+                parent.order_no = order_no;
+                parent.cart_no = cart_no;
             }
         });
 
@@ -110,6 +113,7 @@ public class titleSearch extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +136,13 @@ public class titleSearch extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,6 +157,8 @@ public class titleSearch extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
                 .addContainerGap())
         );
@@ -160,7 +173,8 @@ public class titleSearch extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -191,16 +205,33 @@ public class titleSearch extends javax.swing.JFrame {
             System.out.println(quantity);
 
             try {
-                resultSet = statement
-                    .executeQuery("select max(cart_no) from CART;");
-                if (resultSet.next()) {
-                    cart_no = resultSet.getInt(1) + 1;
-                    System.out.println("cart_no=" + cart_no);
+                if (cart_no == 0) {
+                    resultSet = statement
+                        .executeQuery("select max(cart_no) from CART;");
+                    if (resultSet.next()) {
+                        cart_no = resultSet.getInt(1) + 1;
+                        System.out.println("cart_no=" + cart_no);
+                    }
+                    else {
+                        cart_no = 1;
+                    }
+                }
+                
+                if (order_no == 0) {
+                    resultSet = statement
+                        .executeQuery("select max(order_no) from ORDERS;");
+                    if (resultSet.next()) {
+                        order_no = resultSet.getInt(1) + 1;
+                        System.out.println("order_no=" + order_no);
+                    }
+                    else {
+                        order_no = 1;
+                    }
                 }
                 else {
-                    cart_no = 1;
+                    order_no++;
                 }
-                order_no = cart_no;
+
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -219,32 +250,52 @@ public class titleSearch extends javax.swing.JFrame {
                 e.printStackTrace();
             }
 
-            try {
-                preparedStatement = con
-                        .prepareStatement("insert into CART values (" + cart_no + ",'" + uname + "');");
-                System.out.println("insert into CART values (" + cart_no + ",'" + uname + "');");
-                preparedStatement.executeUpdate();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+                        try {
+                    resultSet = statement
+                            .executeQuery("select S.stock_qty from STOCK S, BOOK B where S.ISBN='"+ isbn + "';");
 
-    //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); 
-    //time.setText(sdf.format(cal.getTime()));
-            try {
-                preparedStatement = con
-                        .prepareStatement("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'2013-12-16');");
-                System.out.println ("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'" + date + "');");
-                preparedStatement.executeUpdate();
+                    while (resultSet.next()) {
+                        stock_qty = resultSet.getInt(1);
+                    }
             }
             catch (SQLException e) {
-                e.printStackTrace();
+                    e.printStackTrace();
             }
             
-            JOptionPane.showMessageDialog(null, "Book selected");
+            System.out.println("Stock qty = " + stock_qty);
+            
+            if (stock_qty < quantity) {
+                    JOptionPane.showMessageDialog(null, "Stock not available for selected quantity. Available quantity is " + stock_qty);
+            }
+            
+            else {
+
+                try {
+                    preparedStatement = con
+                            .prepareStatement("insert into CART values (" + cart_no + ",'" + uname + "');");
+                    System.out.println("insert into CART values (" + cart_no + ",'" + uname + "');");
+                    preparedStatement.executeUpdate();
+                }
+                catch (SQLException e) {
+
+                }
+
+        //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); 
+        //time.setText(sdf.format(cal.getTime()));
+                try {
+                    preparedStatement = con
+                            .prepareStatement("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'2013-12-16');");
+                    System.out.println ("insert into ORDERS values (" + order_no + "," + cart_no + ",'" + isbn + "'," + quantity +",'" + date + "');");
+                    preparedStatement.executeUpdate();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                JOptionPane.showMessageDialog(null, "Book selected");
+            }
 
         }
-        
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -252,7 +303,16 @@ public class titleSearch extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        parent.cart_no=cart_no;
+        parent.order_no=order_no;
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
